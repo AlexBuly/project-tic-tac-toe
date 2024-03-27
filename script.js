@@ -5,9 +5,14 @@ This game will have a board, 2 players. The game will switch between players aft
 
 // gameboard object 
 const Gameboard = {
-    gameBoard: [["_", "_", "_"], ["_", "_", "_"], ["_","_","_"]]
+    gameBoard: [["_","_","_"],["_", "_", "_"], ["_","_","_"]]
+}
+const insert = (start, del, a, b ,c) => {
+    Gameboard.gameBoard.splice(start, del, [a, b ,c]);
+    return Gameboard.gameBoard;
 }
 console.log(Gameboard.gameBoard);
+
 
 // players 
 const players = {
