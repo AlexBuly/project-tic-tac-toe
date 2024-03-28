@@ -9,6 +9,9 @@ const Gameboard = {
 }
 const insert = (start, del, a, b ,c) => {
     Gameboard.gameBoard.splice(start, del, [a, b ,c]);
+    if (Gameboard.gameBoard[1] == ["X","X","X"]) {
+        console.log("X wins!");
+    }
     return Gameboard.gameBoard;
 }
 console.log(Gameboard.gameBoard);
