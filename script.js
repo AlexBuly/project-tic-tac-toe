@@ -4,46 +4,46 @@ This game will have a board, 2 players. The game will switch between players aft
  */
 
 // gameboard object 
-const Gameboard = {
-    gameBoard: [["_","_","_"],["_", "_", "_"], ["_","_","_"]]
-}
+const Gameboard = () => {
+    const gameBoard = [["_","_","_"],["_", "_", "_"], ["_","_","_"]];
+    console.log(gameBoard);
+
 const insert = (row, col, val) => {
     if (row == 0) {
         if (col == 0) {
-            Gameboard.gameBoard[0].splice(0, 1, val);
+           gameBoard[0].splice(0, 1, val);
         }
         if (col == 1) {
-            Gameboard.gameBoard[0].splice(1, 1, val);
+            gameBoard[0].splice(1, 1, val);
         }
         if (col == 2) {
-            Gameboard.gameBoard[0].splice(2, 1, val);
+            gameBoard[0].splice(2, 1, val);
         }
     }
     if (row == 1) {
         if (col == 0) {
-            Gameboard.gameBoard[1].splice(0, 1, val);
+            gameBoard[1].splice(0, 1, val);
         }
         if (col == 1) {
-            Gameboard.gameBoard[1].splice(1, 1, val);
+            gameBoard[1].splice(1, 1, val);
         }
         if (col == 2) {
-            Gameboard.gameBoard[1].splice(2, 1, val);
+            gameBoard[1].splice(2, 1, val);
         }
     }
     if (row == 2) {
         if (col == 0) {
-            Gameboard.gameBoard[2].splice(0, 1, val);
+            gameBoard[2].splice(0, 1, val);
         }
         if (col == 1) {
-            Gameboard.gameBoard[2].splice(1, 1, val);
+            gameBoard[2].splice(1, 1, val);
         }
         if (col == 2) {
-            Gameboard.gameBoard[2].splice(2, 1, val);
+            gameBoard[2].splice(2, 1, val);
         }
     }
-    return Gameboard.gameBoard;
+    return gameBoard;
 }
-console.log(Gameboard.gameBoard);
 
 
 // players 
@@ -53,5 +53,8 @@ const players = {
 }
 
 console.log(players);
+return { insert };
+}
 
+const game = Gameboard();
 
