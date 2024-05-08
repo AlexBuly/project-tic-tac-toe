@@ -5,45 +5,45 @@ This game will have a board, 2 players. The game will switch between players aft
 
 // gameboard object 
 const Gameboard = () => {
-    const gameBoard = [["_","_","_"],["_", "_", "_"], ["_","_","_"]];
-    console.log(gameBoard);
+    const board = [["_","_","_"],["_", "_", "_"], ["_","_","_"]];
+    console.log(board);
 
     // inserting values 
     const insert = (row, col, val) => {
         if (row == 0) {
             if (col == 0) {
-                gameBoard[0].splice(0, 1, val);
+                board[0].splice(0, 1, val);
             }
             if (col == 1) {
-                gameBoard[0].splice(1, 1, val);
+                board[0].splice(1, 1, val);
             }
             if (col == 2) {
-                gameBoard[0].splice(2, 1, val);
+                board[0].splice(2, 1, val);
             }
         }
         if (row == 1) {
             if (col == 0) {
-                gameBoard[1].splice(0, 1, val);
+                board[1].splice(0, 1, val);
             }
             if (col == 1) {
-                gameBoard[1].splice(1, 1, val);
+                board[1].splice(1, 1, val);
             }
             if (col == 2) {
-                gameBoard[1].splice(2, 1, val);
+                board[1].splice(2, 1, val);
             }
         }
         if (row == 2) {
             if (col == 0) {
-                gameBoard[2].splice(0, 1, val);
+                board[2].splice(0, 1, val);
             }
             if (col == 1) {
-                gameBoard[2].splice(1, 1, val);
+                board[2].splice(1, 1, val);
             }
             if (col == 2) {
-                gameBoard[2].splice(2, 1, val);
+                board[2].splice(2, 1, val);
             }
         }
-        return gameBoard;
+        return board;
     }
 
     const playerOneName = prompt("Enter player one name")
