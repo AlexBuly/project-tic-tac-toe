@@ -49,11 +49,15 @@ const Gameboard = () => {
         }
         return board;
     }
+   
+    printBoard()
+    return { insert, printBoard };
+}
 
-    const playerOneName = prompt("Enter player one name")
-    const playerTwoName = prompt("Enter player two name")
-
-
+const GameController = (
+    playerOneName = prompt("Enter player one name:"),
+    playerTwoName = prompt("Enter player two name:")
+) => {
     // players 
     const players = [
         {
@@ -64,11 +68,13 @@ const Gameboard = () => {
             name: playerTwoName,
             token: "O"
         }
-    ]
+    ]; 
 
-    console.log(players);
-    printBoard()
-    return { insert, printBoard };
+    let activePlayer = players[0];
+
+    const switchTurn = () => {
+        activePlayer = activePlayer === players[0] ? players[1] : players[0];
+    }
 }
 
 const game = Gameboard();
