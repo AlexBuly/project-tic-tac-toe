@@ -6,7 +6,11 @@ This game will have a board, 2 players. The game will switch between players aft
 // gameboard object 
 const Gameboard = () => {
     const board = [["_","_","_"],["_", "_", "_"], ["_","_","_"]];
-    console.log(board);
+    
+    const printBoard = () => {
+        console.log(board);
+    }
+
 
     // inserting values 
     const insert = (row, col, val) => {
@@ -63,7 +67,8 @@ const Gameboard = () => {
     ]
 
     console.log(players);
-    return { insert };
+    printBoard()
+    return { insert, printBoard };
 }
 
 const game = Gameboard();
