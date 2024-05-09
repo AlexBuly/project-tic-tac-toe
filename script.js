@@ -5,10 +5,22 @@ This game will have a board, 2 players. The game will switch between players aft
 
 // gameboard object 
 const Gameboard = () => {
-    const board = [["_","_","_"],["_", "_", "_"], ["_","_","_"]];
+    const rows = 3;
+    const columns = 3;
+    const board = [];
+
+    for (let i = 0; i < rows; i++) {
+        board[i] = [];
+        for (let j = 0; j < columns; j++) {
+            board[i].push(Cell());
+        }
+    }
+
+    const getBoard = () => board
     
     const printBoard = () => {
-        console.log(board);
+        const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()));
+        console.log(boardWithCellValues);
     }
 
 
@@ -47,17 +59,33 @@ const Gameboard = () => {
                 board[2].splice(2, 1, val);
             }
         }
-        return board;
+        board[row][col].addToken(val);
     }
    
     printBoard()
     return { insert, printBoard };
 }
 
+const Cell = () => {
+    let value = "_";
+
+    const addToken = (player) => {
+        value = player
+    }
+
+    const getValue = () => value;
+
+    return {
+        getValue,
+        addToken
+    }
+}
+
 const GameController = (
     playerOneName = prompt("Enter player one name:"),
     playerTwoName = prompt("Enter player two name:")
 ) => {
+    const board = Gameboard();
     // players 
     const players = [
         {
@@ -75,6 +103,27 @@ const GameController = (
     const switchTurn = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
+
+    const getActivePlayer = () => activePlayer
+
+    const printNewRound = () => {
+        board.printBoard();
+        console.log(`${getActivePlayer().name}'s turn.`)
+    }
+
+    const playRound = (row, col) => {
+        board.insert(row, col, getActivePlayer.token());
+
+        switchTurn();
+        printNewRound();
+    };
+    printNewRound();
+
+    return {
+        playRound,
+        getActivePlayer
+    }
+
 }
 
 const game = Gameboard();
