@@ -49,9 +49,11 @@ const Cell = () => {
 }
 
 const GameController = (
-    playerOneName = prompt("Enter player one name:"),
-    playerTwoName = prompt("Enter player two name:")
+    playerOneName = "Player One",
+    playerTwoName = "Player Two"
 ) => {
+
+    const container = document.querySelector(".container");
     const board = Gameboard();
     // players 
     const players = [
@@ -74,6 +76,8 @@ const GameController = (
 
     const getActivePlayer = () => activePlayer;
 
+    const isRunning = () => gameRunning;
+
     const printNewRound = () => {
         board.printBoard();
         console.log(`${getActivePlayer().name}'s turn.`);
@@ -88,7 +92,7 @@ const GameController = (
             [[0,0], [1,0], [2,0]], // columns
             [[0,1], [1,1], [2,1]],
             [[0,2], [1,2], [2,2]],
-            [[0,0], [1,1], [2,2]],
+            [[0,0], [1,1], [2,2]], // diagonals 
             [[0,2], [1,1], [2,0]]
         ];
 
@@ -139,7 +143,7 @@ const GameController = (
             printNewRound();
         } else {
             console.log(`${getActivePlayer().name} wins`);
-            //return;
+            return;
         }
     };
     printNewRound();
@@ -147,9 +151,46 @@ const GameController = (
     return {
         playRound,
         getActivePlayer,
-        checkWin
+        checkWin,
+        getBoard: board.getBoard,
+        isRunning
     };
 }
 
-const game = GameController();
+const DisplayController = () => {
+    const game = GameController();
+    const displayMessage = document.querySelector(".text");
+    const boardDiv = document.querySelector(".board");
+
+    const updateScreen = () => {
+        boardDiv.textContent = "";
+
+        const board = game.getBoard();
+        const activePlayer = game.getActivePlayer();
+        const running = game.isRunning();
+
+        const playerTurnDiv = `${activePlayer.name}'s turn`;
+        const winMessage = `${activePlayer.name} wins`
+
+        if (running === false) {
+            displayMessage.textContent = winMessage;
+        } else {
+            displayMessage.textContent = playerTurnDiv;
+        }
+
+        board.forEach(row => {
+            row.forEach((cell, index) => {
+                const cellButton = document.createElement("button");
+                cellButton.classList.add("cell");
+                cellButton.dataset.column = index;
+                cellButton.textContent = cell.getValue();
+                boardDiv.appendChild(cellButton);
+            })
+        })
+
+    }
+    updateScreen();
+}
+
+DisplayController();
 
