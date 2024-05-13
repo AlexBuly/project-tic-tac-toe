@@ -90,8 +90,9 @@ const GameController = (
             [[0,2], [1,2], [2,2]],
             [[0,0], [1,1], [2,2]],
             [[0,2], [1,1], [2,0]]
-
         ];
+
+        let boardFull = true;
 
         for (const pattern of winPatterns) {
             const [a, b, c] = pattern;
@@ -107,6 +108,20 @@ const GameController = (
                 gameRunning = false;
                 return;
             }
+        }
+
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 3; col++) {
+                if (boardState[row][col].getValue() === "_") {
+                    boardFull = false;
+                    break;
+                }
+            }
+        }
+
+        if (boardFull) {
+            gameRunning = false;
+            console.log("Tie.");
         }
     };
     
