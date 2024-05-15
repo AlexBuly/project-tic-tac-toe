@@ -141,9 +141,6 @@ const GameController = (
         if (gameRunning == true) {
             switchTurn();
             printNewRound();
-        } else {
-            console.log(`${getActivePlayer().name} wins`);
-            return;
         }
     };
     printNewRound();
@@ -178,17 +175,30 @@ const DisplayController = () => {
             displayMessage.textContent = playerTurnDiv;
         }
 
-        board.forEach(row => {
-            row.forEach((cell, index) => {
+        board.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
                 const cellButton = document.createElement("button");
                 cellButton.classList.add("cell");
-                cellButton.dataset.column = index;
+                cellButton.dataset.row = rowIndex;
+                cellButton.dataset.column = colIndex;
                 cellButton.textContent = cell.getValue();
                 boardDiv.appendChild(cellButton);
             })
         })
 
     }
+
+    const clickHandlerBoard = (e) => {
+        const selectedColumn = e.target.dataset.column;
+        const selectedRow = e.target.dataset.row;
+        
+        if (!selectedColumn || !selectedRow) return;
+
+        game.playRound(selectedRow, selectedColumn);
+        updateScreen();
+    }
+
+    boardDiv.addEventListener("click", clickHandlerBoard);
     updateScreen();
 }
 

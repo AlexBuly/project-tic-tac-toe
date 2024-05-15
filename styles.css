@@ -20,8 +20,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: 4rem;
     border: 1px solid gray;
     cursor: pointer;
     background-color: beige;
+}
+
+.cell:hover {
+    background-color: bisque;
 }
