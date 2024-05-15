@@ -69,6 +69,7 @@ const GameController = (
 
     let activePlayer = players[0];
     let gameRunning = true;
+    let boardFull;
 
     const reset = () => {
         const resetBtn = document.createElement("button");
@@ -77,7 +78,7 @@ const GameController = (
         container.appendChild(resetBtn);
 
         resetBtn.addEventListener("click", () => {
-            location.reload()
+            location.reload();
         });
     }
 
@@ -88,6 +89,8 @@ const GameController = (
     const getActivePlayer = () => activePlayer;
 
     const isRunning = () => gameRunning;
+
+    const fullBoard = () => boardFull;
 
     const printNewRound = () => {
         board.printBoard();
@@ -107,7 +110,7 @@ const GameController = (
             [[0,2], [1,1], [2,0]]
         ];
 
-        let boardFull = true;
+        boardFull = true;
 
         for (const pattern of winPatterns) {
             const [a, b, c] = pattern;
@@ -141,7 +144,6 @@ const GameController = (
         }
     };
     
-
     const playRound = (row, col) => {
         if (gameRunning == false) {
             console.log("Game over. Please restart the game.");
@@ -162,7 +164,8 @@ const GameController = (
         getActivePlayer,
         checkWin,
         getBoard: board.getBoard,
-        isRunning
+        isRunning,
+        fullBoard
     };
 }
 
@@ -177,12 +180,17 @@ const DisplayController = () => {
         const board = game.getBoard();
         const activePlayer = game.getActivePlayer();
         const running = game.isRunning();
+        const boardFull = game.fullBoard();
 
         const playerTurnDiv = `${activePlayer.name}'s turn`;
         const winMessage = `${activePlayer.name} wins`
+        const tie = 'Tie';
 
         if (running === false) {
             displayMessage.textContent = winMessage;
+            if (boardFull) {
+                displayMessage.textContent = tie;
+            }
         } else {
             displayMessage.textContent = playerTurnDiv;
         }
