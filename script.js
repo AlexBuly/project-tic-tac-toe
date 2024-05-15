@@ -49,8 +49,8 @@ const Cell = () => {
 }
 
 const GameController = (
-    playerOneName = "Player One",
-    playerTwoName = "Player Two"
+    playerOneName = prompt("Enter player one name:"),
+    playerTwoName = prompt("Enter player two name:")
 ) => {
 
     const container = document.querySelector(".container");
@@ -69,6 +69,17 @@ const GameController = (
 
     let activePlayer = players[0];
     let gameRunning = true;
+
+    const reset = () => {
+        const resetBtn = document.createElement("button");
+        resetBtn.classList.add("resetBtn");
+        resetBtn.textContent = "New Game";
+        container.appendChild(resetBtn);
+
+        resetBtn.addEventListener("click", () => {
+            location.reload()
+        });
+    }
 
     const switchTurn = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -110,6 +121,7 @@ const GameController = (
                 boardState[aRow][aCol].getValue() === boardState[cRow][cCol].getValue()
             ) {
                 gameRunning = false;
+                reset();
                 return;
             }
         }
