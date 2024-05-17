@@ -13,7 +13,7 @@ const Gameboard = () => {
     const getBoard = () => board;
 
     const insert = (row, col, player) => {
-        if (board[row][col].getValue() === "_") {
+        if (board[row][col].getValue() === "") {
             board[row][col].addToken(player);
         }
     }
@@ -27,7 +27,7 @@ const Gameboard = () => {
 }
 
 const Cell = () => {
-    let val = "_";
+    let val = "";
 
     const addToken = (player) => {
         val = player;
@@ -105,7 +105,7 @@ const GameController = (
             const [cRow, cCol] = c;
 
             if (
-                boardState[aRow][aCol].getValue() !== "_" &&
+                boardState[aRow][aCol].getValue() !== "" &&
                 boardState[aRow][aCol].getValue() === boardState[bRow][bCol].getValue() &&
                 boardState[aRow][aCol].getValue() === boardState[cRow][cCol].getValue()
             ) {
@@ -118,7 +118,7 @@ const GameController = (
         let boardFull = true;
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
-                if (boardState[row][col].getValue() === "_") {
+                if (boardState[row][col].getValue() === "") {
                     boardFull = false;
                     break;
                 }
