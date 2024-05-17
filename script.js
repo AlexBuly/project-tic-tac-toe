@@ -1,9 +1,3 @@
-/*
-This game will have a board, 2 players. The game will switch between players after their turn. When
-3 in a row is achieved, the player wins. If no player wins, a tie occurs. 
- */
-
-// gameboard object 
 const Gameboard = () => {
     const rows = 3;
     const columns = 3;
@@ -16,12 +10,11 @@ const Gameboard = () => {
         }
     }
 
-    const getBoard = () => board
+    const getBoard = () => board;
 
-    // inserting values 
     const insert = (row, col, player) => {
         if (board[row][col].getValue() === "_") {
-            board[row][col].addToken(player)
+            board[row][col].addToken(player);
         }
     }
 
@@ -37,15 +30,12 @@ const Cell = () => {
     let val = "_";
 
     const addToken = (player) => {
-        val = player
+        val = player;
     }
 
     const getValue = () => val;
 
-    return {
-        addToken,
-        getValue
-    };
+    return { addToken, getValue };
 }
 
 const GameController = (
@@ -55,21 +45,19 @@ const GameController = (
 
     const container = document.querySelector(".container");
     const board = Gameboard();
-    // players 
     const players = [
-        {
-            name: playerOneName,
-            token: "X"
+        { name: playerOneName, 
+          token: "X" 
         },
-        {
-            name: playerTwoName,
-            token: "O"
+        { 
+            name: playerTwoName, 
+            token: "O" 
         }
-    ]; 
+    ];
 
     let activePlayer = players[0];
     let gameRunning = true;
-    let boardFull;
+    let gameResult = null;
 
     const reset = () => {
         const resetBtn = document.createElement("button");
@@ -90,27 +78,25 @@ const GameController = (
 
     const isRunning = () => gameRunning;
 
-    const fullBoard = () => boardFull;
+    const getResult = () => gameResult;
 
     const printNewRound = () => {
         board.printBoard();
         console.log(`${getActivePlayer().name}'s turn.`);
     }
- 
+
     const checkWin = () => {
         const boardState = board.getBoard();
         const winPatterns = [
-            [[0,0], [0,1], [0,2]], //rows
-            [[1,0], [1,1], [1,2]],
-            [[2,0], [2,1], [2,2]],
-            [[0,0], [1,0], [2,0]], // columns
-            [[0,1], [1,1], [2,1]],
-            [[0,2], [1,2], [2,2]],
-            [[0,0], [1,1], [2,2]], // diagonals 
-            [[0,2], [1,1], [2,0]]
+            [[0, 0], [0, 1], [0, 2]], // rows
+            [[1, 0], [1, 1], [1, 2]],
+            [[2, 0], [2, 1], [2, 2]],
+            [[0, 0], [1, 0], [2, 0]], // columns
+            [[0, 1], [1, 1], [2, 1]],
+            [[0, 2], [1, 2], [2, 2]],
+            [[0, 0], [1, 1], [2, 2]], // diagonals
+            [[0, 2], [1, 1], [2, 0]]
         ];
-
-        boardFull = true;
 
         for (const pattern of winPatterns) {
             const [a, b, c] = pattern;
@@ -124,11 +110,12 @@ const GameController = (
                 boardState[aRow][aCol].getValue() === boardState[cRow][cCol].getValue()
             ) {
                 gameRunning = false;
+                gameResult = "win"
                 reset();
-                return;
             }
         }
 
+        let boardFull = true;
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
                 if (boardState[row][col].getValue() === "_") {
@@ -136,36 +123,39 @@ const GameController = (
                     break;
                 }
             }
+            if (!boardFull) break;
         }
 
         if (boardFull) {
             gameRunning = false;
-            console.log("Tie.");
+            gameResult = "tie";
+            return;
         }
+
+        gameResult = null;
     };
-    
+
     const playRound = (row, col) => {
-        if (gameRunning == false) {
+        if (!gameRunning) {
             console.log("Game over. Please restart the game.");
             return;
         }
         board.insert(row, col, getActivePlayer().token);
         checkWin();
-
-        if (gameRunning == true) {
+        if (gameRunning) {
             switchTurn();
-            printNewRound();
         }
+        printNewRound();
     };
+
     printNewRound();
 
     return {
         playRound,
         getActivePlayer,
-        checkWin,
         getBoard: board.getBoard,
         isRunning,
-        fullBoard
+        getResult
     };
 }
 
@@ -180,16 +170,18 @@ const DisplayController = () => {
         const board = game.getBoard();
         const activePlayer = game.getActivePlayer();
         const running = game.isRunning();
-        const boardFull = game.fullBoard();
+        const result = game.getResult();
 
+        // Options for game state message
         const playerTurnDiv = `${activePlayer.name}'s turn`;
-        const winMessage = `${activePlayer.name} wins`
-        const tie = 'Tie';
+        const winMessage = `${activePlayer.name} wins`;
+        const tieMessage = 'Tie';
 
-        if (running === false) {
-            displayMessage.textContent = winMessage;
-            if (boardFull) {
-                displayMessage.textContent = tie;
+        if (!running) {
+            if (result === "tie") {
+                displayMessage.textContent = tieMessage;
+            } else {
+                displayMessage.textContent = winMessage;
             }
         } else {
             displayMessage.textContent = playerTurnDiv;
@@ -203,18 +195,17 @@ const DisplayController = () => {
                 cellButton.dataset.column = colIndex;
                 cellButton.textContent = cell.getValue();
                 boardDiv.appendChild(cellButton);
-            })
-        })
-
+            });
+        });
     }
 
     const clickHandlerBoard = (e) => {
         const selectedColumn = e.target.dataset.column;
         const selectedRow = e.target.dataset.row;
-        
+
         if (!selectedColumn || !selectedRow) return;
 
-        game.playRound(selectedRow, selectedColumn);
+        game.playRound(parseInt(selectedRow), parseInt(selectedColumn));
         updateScreen();
     }
 
@@ -223,4 +214,3 @@ const DisplayController = () => {
 }
 
 DisplayController();
-
