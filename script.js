@@ -98,6 +98,8 @@ const GameController = (
             [[0, 2], [1, 1], [2, 0]]
         ];
 
+        let winner = false;
+
         for (const pattern of winPatterns) {
             const [a, b, c] = pattern;
             const [aRow, aCol] = a;
@@ -110,29 +112,30 @@ const GameController = (
                 boardState[aRow][aCol].getValue() === boardState[cRow][cCol].getValue()
             ) {
                 gameRunning = false;
-                gameResult = "win"
+                gameResult = "win";
+                winner = true;
                 reset();
             }
         }
 
-        let boardFull = true;
-        for (let row = 0; row < 3; row++) {
-            for (let col = 0; col < 3; col++) {
-                if (boardState[row][col].getValue() === "") {
-                    boardFull = false;
-                    break;
+        if (!winner) {
+            let boardFull = true;
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 3; col++) {
+                    if (boardState[row][col].getValue() === "") {
+                        boardFull = false;
+                        break;
+                    }
                 }
+                if (!boardFull) break;
             }
-            if (!boardFull) break;
-        }
 
-        if (boardFull) {
-            gameRunning = false;
-            gameResult = "tie";
-            return;
+            if (boardFull) {
+                gameRunning = false;
+                gameResult = "tie";
+                reset();
+            }
         }
-
-        gameResult = null;
     };
 
     const playRound = (row, col) => {
@@ -144,8 +147,9 @@ const GameController = (
         checkWin();
         if (gameRunning) {
             switchTurn();
+            printNewRound();
         }
-        printNewRound();
+        //
     };
 
     printNewRound();
