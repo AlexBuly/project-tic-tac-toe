@@ -43,7 +43,7 @@ const GameController = (
     playerTwoName = prompt("Enter player two name:")
 ) => {
 
-    const container = document.querySelector(".container");
+    const container = document.querySelector("body");
     const board = Gameboard();
     const players = [
         { name: playerOneName, 
@@ -175,6 +175,8 @@ const DisplayController = () => {
         const activePlayer = game.getActivePlayer();
         const running = game.isRunning();
         const result = game.getResult();
+        const colorX = document.getElementById("color-selectX");
+        const colorO = document.getElementById("color-selectO");
 
         // Options for game state message
         const playerTurnDiv = `${activePlayer.name}'s turn`;
@@ -198,6 +200,11 @@ const DisplayController = () => {
                 cellButton.dataset.row = rowIndex;
                 cellButton.dataset.column = colIndex;
                 cellButton.textContent = cell.getValue();
+                if (cellButton.textContent === "X") {
+                    cellButton.style.color = colorX.value;
+                } else {
+                    cellButton.style.color = colorO.value;
+                }
                 boardDiv.appendChild(cellButton);
             });
         });

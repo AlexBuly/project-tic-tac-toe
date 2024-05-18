@@ -3,15 +3,41 @@
     margin: 0;
 }
 
-.container {
+body {
+    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 0.5em;
+}
+
+.colorX {
+    align-items: center;
+    grid-row: 3;
+}
+
+select {
+    cursor: pointer;;
+}
+
+.container {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 1fr 7fr 1fr;
+    gap: 0.5em;
+}
+
+.title {
+    grid-column: 2;
+}
+
+.text {
+    grid-column: 2;
 }
 
 .board {
     display: grid;
+    grid-column: 2;
     height: 500px;
     width: 500px;
     grid-template-columns: repeat(3, 1fr);
@@ -43,6 +69,7 @@
     border-radius: 1em;
     background-color: lightblue;
     font-weight: bold;
+    margin: auto;
 }
 
 .resetBtn:hover {
