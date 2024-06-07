@@ -180,7 +180,7 @@ const DisplayController = () => {
 
         // Options for game state message
         const playerTurnDiv = `${activePlayer.name}'s turn`;
-        const winMessage = `${activePlayer.name} wins`;
+        const winMessage = `${activePlayer.name} wins!`;
         const tieMessage = 'Tie';
 
         if (!running) {

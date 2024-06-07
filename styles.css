@@ -130,10 +130,6 @@ option[value] {
         font-size: 1.5em;
     }
 
-    .colorX, .colorO {
-        font-size: smaller;
-    }
-
     .colorX {
         grid-row: 4;
         grid-column: 2;
@@ -147,10 +143,6 @@ option[value] {
     .board {
         grid-column-start: 1;
         grid-column-end: -1;
-    }
-
-    .resetBtn {
-        font-size: 1em;
     }
 
     .cell {
