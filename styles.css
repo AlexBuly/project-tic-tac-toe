@@ -15,16 +15,26 @@ body {
     grid-row: 3;
 }
 
+label {
+    font-size: larger;
+    width: 50%;
+}
+
 select {
-    cursor: pointer;;
+    cursor: pointer;
+    font-size: larger;
 }
 
 .container {
     display: grid;
     justify-items: center;
     align-items: center;
-    grid-template-columns: 1fr 7fr 1fr;
-    gap: 0.5em;
+    grid-template-columns: 4fr 7fr 4fr;
+    gap: 0.5em
+}
+
+option[value] {
+    border-radius: 50%;
 }
 
 .title {
@@ -38,8 +48,8 @@ select {
 .board {
     display: grid;
     grid-column: 2;
-    height: 500px;
     width: 500px;
+    height: 500px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     border: 1px solid black;
