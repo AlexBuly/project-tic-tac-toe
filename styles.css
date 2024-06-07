@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Reem+Kufi:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&family=Seymour+One&display=swap');
+
 .title {
     font-size: 50px;
     margin: 0;
@@ -31,6 +33,7 @@ select {
     align-items: center;
     grid-template-columns: 4fr 7fr 4fr;
     gap: 0.5em;
+    font-family: "Sansita", sans-serif;
 }
 
 option[value] {
@@ -60,6 +63,7 @@ option[value] {
 
 .cell {
     display: flex;
+    font-family: "Permanent Marker", cursive;
     justify-content: center;
     align-items: center;
     font-size: 4rem;
@@ -147,6 +151,10 @@ option[value] {
 
     .resetBtn {
         font-size: 1em;
+    }
+
+    .cell {
+        font-size: 30px;
     }
     
 }
