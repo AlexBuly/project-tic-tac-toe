@@ -30,7 +30,7 @@ select {
     justify-items: center;
     align-items: center;
     grid-template-columns: 4fr 7fr 4fr;
-    gap: 0.5em
+    gap: 0.5em;
 }
 
 option[value] {
@@ -84,4 +84,69 @@ option[value] {
 
 .resetBtn:hover {
     background-color: rgb(173, 209, 230);
+}
+
+@media  screen and (max-width: 700px) {
+    .board {
+        height: 400px;
+        width: 400px;
+    }
+
+    .container {
+        grid-template-rows: 1fr 1fr 3fr 1fr 1fr;
+        gap: 0.2em;
+    }
+
+    .title {
+        font-size: 3em;
+    }
+    
+}
+
+@media  screen and (max-width: 500px) {
+    .board {
+        height: 250px;
+        width: 250px;
+    }
+
+    .container {
+        grid-template-rows: 1fr 1fr 3fr 1fr 1fr;
+    }
+
+    .title, .text {
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+
+    .title {
+        font-size: 2em;
+    }
+
+    .text {
+        font-size: 1.5em;
+    }
+
+    .colorX, .colorO {
+        font-size: smaller;
+    }
+
+    .colorX {
+        grid-row: 4;
+        grid-column: 2;
+    }
+
+    .colorO {
+        grid-row: 5;
+        grid-column: 2;
+    }
+
+    .board {
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+
+    .resetBtn {
+        font-size: 1em;
+    }
+    
 }
